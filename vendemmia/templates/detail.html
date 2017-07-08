@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block content %}
+    
+
+    <h1>Vendemmia {{ sum_bolle.Vendemmia_id }}</h1>
+    <hr>
+    Quintali: {{ sum_bolle.tot|floatformat:2  }} <br>
+    Montegradi: {{ sum_bolle.monte|floatformat:4 }} <br>
+	<br>
+	
+
+	
+	<table>
+	<th>Cultivar
+    <th>Netto Assegnato
+	<th>Montegradi
+	<tbody>
+	<br>
+    {% for lista in cultivar_query %}
+    	<tr class="{% cycle 'odd' 'even' %}">
+		<td>{{lista.Cultivar}}
+		<td align=right>{{lista.tot|floatformat:2}}
+        	<td align=right>{{lista.monte|floatformat:4}}
+        </tr>
+
+    {% endfor %}
+	</tbody>
+	</table>
+
+	<br>
+	<br>
+	
+	<table>
+	<th>Qualità
+    	<th>Netto Assegnato
+	<th>Montegradi
+	<tbody>
+	<br>
+    {% for lista in totali_qualita %}
+    	<tr class="{% cycle 'odd' 'even' %}">
+		<td>{{lista.0}}
+		<td align=right>{{lista.1|floatformat:2}}
+        	<td align=right>{{lista.2|floatformat:4}}
+        </tr>
+
+    {% endfor %}
+	</tbody>
+	</table>
+
+	<br>
+	<br>
+	
+	
+	<table>
+	<th>Provenienza eff.
+	<th>Cultivar
+    <th>Netto Assegnato
+	<th>Montegradi
+	<tbody>
+	<br>
+    {% for lista in totali_prov_eff|dictsort:"nome" %}
+    	<tr class="{% cycle 'odd' 'even' %}">
+			<td>{{lista.nome}}	</td>
+			<td>{{lista.Cultivar_eff}}
+			<td align=right>{{lista.nettoass|floatformat:2}}
+        	<td align=right>{{lista.monteass|floatformat:4}}
+        </tr>
+
+    {% endfor %}
+	</tbody>
+	</table>
+
+	
+	<br>
+	<br>
+	
+	
+	<table>
+	<th>Provenienza ragg.
+	<th>Cultivar
+    <th>Netto Assegnato
+	<th>Montegradi
+	<tbody>
+	<br>
+    {% for lista in provenienza_query %}
+    	<tr class="{% cycle 'odd' 'even' %}">
+			<td rowspan="lista.nump"> {{lista.nump}} {{lista.Provenienza}}	</td>
+			<td>{{lista.Cultivar}}
+			<td align=right>{{lista.tot|floatformat:2}}
+        	<td align=right>{{lista.monte|floatformat:4}}
+        </tr>
+
+    {% endfor %}
+	</tbody>
+	</table>
+
+	
+	<br>
+	<br>
+
+    <table>
+    <th>Num.
+    <th>Data
+    <th>BIO
+    <th>Qualità
+	<th>Cultivar
+    <th>Provenienza
+    <th>Netto Assegnato
+    <th>Grado Babo
+	<th>Montegradi
+	<tbody>
+
+    {% for lista in query %}
+    	<tr class="{% cycle 'odd' 'even' %}">
+			<td align=center>{{lista.num}}{% if lista.enopolio == "2" %} /P{% endif %}
+			<td align=center>{{lista.data|date:"d/m/Y"}}
+			<td align=center>{% if "BIO" in lista.Qualita.tipo or "iolog" in lista.Qualita.tipo%}BIO{% endif %}
+			<td>{{lista.Qualita.tipo}}
+			<td>{{lista.Cultivar}}
+			<td>{{lista.Provenienza}}
+			<td align=right>{{lista.netto|floatformat:2}}
+			<td align=right>{{lista.grado|floatformat:2}}
+        	<td align=right>{{lista.monte|floatformat:4}}
+        </tr>
+
+    {% endfor %}
+	</tbody>
+	</table>
+{% endblock %}

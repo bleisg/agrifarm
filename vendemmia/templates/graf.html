@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <title>{% block title %}Vendemmia{% endblock %}</title>	
+   	<script language="javascript" type="text/javascript" src="/static/jquery-1.11.1.min.js"></script>
+    	<script language="javascript" type="text/javascript" src="/static/jquery.flot.js"></script>
+    	<script language="javascript" type="text/javascript" src="/static/jquery.flot.axislabels.js" ></script>
+    	<script language="javascript" type="text/javascript" src="/static/jquery.flot.orderBars.js" ></script>
+    	<script language="javascript" type="text/javascript" src="/static/jquery.flot.tooltip.js" ></script>
+    </head>
+    
+<body>
+	<h1>Confronto grafico per cultivar</h1>
+	<div id="linear-graph" style="width:900px;height:600px"></div>
+		<script id="source" language="javascript" type="text/javascript">
+			var chart_data = {{ data|safe }};
+			var options = {
+                		xaxis: {
+                    			//min: 0,
+                    			//max: 7,
+                    			mode: null,
+                    			ticks:{{ tic|safe }},
+                    			tickLength: 0,
+                    			axisLabel: "Cultivar",
+                    			axisLabelUseCanvas: true,
+                    			axisLabelFontSizePixels: 12,
+                    			axisLabelFontFamily: "Verdana, Arial, Helvetica, Tahoma, sans-serif",
+                    			axisLabelPadding: 5
+                		}, yaxis: {
+                    			axisLabel: "Quintali",
+                    			tickDecimals: 0,
+                    			axisLabelUseCanvas: true,
+                    			axisLabelFontSizePixels: 12,
+                    			axisLabelFontFamily: "Verdana, Arial, Helvetica, Tahoma, sans-serif",
+                    			axisLabelPadding: 5
+                		}, grid: {
+                    			hoverable: true,
+                    			clickable: true,
+                    			borderWidth: 1
+                		}, tooltip:true,
+					tooltipOpts: {
+					content:"%y"
+
+                		}, legend: {
+                    			labelBoxBorderColor: "none",
+                    			position: "ne"
+                		}, series: {
+                    			shadowSize: 1,
+                    			bars: {
+                        			show: true,
+                        			barWidth: 0.07,
+                        			order: 1,
+                        			fillColor: {
+                    					colors: [{
+                        					opacity: 1
+                    					}, {
+                        					opacity: 0.7
+                    					}]
+                				}
+                    			}
+                		}
+                		//colors: ["#AA4643", "#89A54E", "#4572A7"]
+            		};
+			
+			$(function () {
+    				$.plot($("#linear-graph"), chart_data, options);
+			});
+</script>
+
+
+</body>
+
+</html>

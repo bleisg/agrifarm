@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Vendemmie</h1>
+    <dl>
+    {% for lista in lista_bolla.values %}
+
+        <hr>
+        <dt><strong><a href="{{ lista.anno }}/" >{{ lista.anno }}</a></strong></dt>
+        <br>
+        <dd><small>{{ lista.inizio }} - {{ lista.fine }}</small></dd>
+        <br>
+        <dd>Quintali: {{ lista.quintali|floatformat:2  }}</dd>
+        <dd>Montegradi: {{ lista.montegradi|floatformat:4 }}</dd>
+        <blockquote>{{ lista.note }}</blockquote>
+        <br>
+
+    {% endfor %}
+    </dl>
+{% endblock %}

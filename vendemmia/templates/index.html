@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Vendemmie</h1>
+    <a href="../grafici" >Grafici comparativi per cultivar</a>   &nbsp; &nbsp;   <a href="../grafici_prov" >Grafici comparativi per provenienza</a>
+<br>
+<br>
+<hr>
+Grafici storici per provenienza
+<br>
+   	{% for item in prov_eff %}
+		<a href="../grafici_prov/{{item.id}}" >{{item.nome}}    </a> &nbsp;- &nbsp;
+	
+	{% endfor %}
+
+    <dl>
+    {% for lista in query %}
+
+        <hr>
+        <dt><strong><a href="{{ lista.Vendemmia.anno }}/" >{{ lista.Vendemmia.anno }}</a></strong></dt>
+        <br>
+        <dd><small>{{ lista.Vendemmia.inizio }} - {{ lista.Vendemmia.fine }}</small></dd>
+        <br>
+        <dd>Quintali: {{ lista.tot|floatformat:2  }}</dd>
+        <dd>Montegradi: {{ lista.monte|floatformat:4 }}</dd>
+        <blockquote>{{ lista.Vendemmia.note }}</blockquote>
+        <br>
+
+    {% endfor %}
+    </dl>
+{% endblock %}

@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <title>{% block title %}Vendemmia{% endblock %}</title>	
+   	<script language="javascript" type="text/javascript" src="/static/jquery.js"></script>
+    	<script language="javascript" type="text/javascript" src="/static/jquery.flot.js"></script>
+    	<script language="javascript" type="text/javascript" src="/static/jquery.flot.categories.js" "></script>
+    </head>
+    
+<body>
+	<h1>Grafico storico di {{titolo}}</h1>
+	<div id="linear-graph" style="width:800px;height:500px"></div>
+		<script id="source" language="javascript" type="text/javascript">
+			var chart_data = {{ data|safe }};
+			var options = {
+				series: {
+					shadowSize: 1,
+					bars: {
+						show: true,
+						barWidth: 0.6,
+						align: "center"
+					}
+				},
+				xaxis: {
+					mode: "categories",
+					tickLength: 0
+				}
+			};
+			
+			$(function () {
+    				$.plot($("#linear-graph"), [ chart_data ], options);
+				
+			});			
+</script>
+
+
+</body>
+
+</html>
